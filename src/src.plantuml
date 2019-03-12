@@ -1,0 +1,278 @@
+@startuml
+
+title __SRC's Class Diagram__\n
+
+  package  {
+    class BlackJack {
+        ~ BlackJack()
+        + getUser()
+        + getDealer()
+        + getDeck()
+        - deal()
+        ~ dealerHit()
+        ~ playerHit()
+        ~ isWin()
+        ~ stay()
+    }
+  }
+  
+
+  package  {
+    class BlackJackController {
+        ~ BlackJackController()
+        - exit()
+    }
+  }
+  
+
+  package  {
+    class HitListener {
+        + actionPerformed()
+    }
+  }
+  
+
+  package  {
+    class StayListener {
+        + actionPerformed()
+    }
+  }
+  
+
+  package  {
+    class Card {
+        {static} - SPADES : int
+        {static} - HEARTS : int
+        {static} - DIAMONDS : int
+        {static} - CLUBS : int
+        {static} - ACE : int
+        {static} - JACK : int
+        {static} - QUEEN : int
+        {static} - KING : int
+        - suit : int
+        - value : int
+        + Card()
+        + getValue()
+        + getSuit()
+        + getSuitAsString()
+        + getValueAsString()
+        + toString()
+    }
+  }
+  
+
+  package  {
+    class CardPanel {
+        - backgroundImage : Image
+        + CardPanel()
+        + paintComponent()
+    }
+  }
+  
+
+  package  {
+    class Dealer {
+        + Dealer()
+    }
+  }
+  
+
+  package  {
+    class Deck {
+        - cards : ArrayList<Card>
+        + Deck()
+        + shuffle()
+        + getNumCards()
+        + dealCard()
+    }
+  }
+  
+
+  package  {
+    class GameBoard {
+        - frame : JFrame
+        {static} - game : BlackJack
+        ~ gameMessage : JLabel
+        ~ centerPanel : JPanel
+        ~ btnHit : JButton
+        ~ btnStay : JButton
+        ~ UserPanel : JPanel
+        ~ DealerPanel : JPanel
+        + GameBoard()
+        - initialize()
+        + showGameMessage()
+        ~ addHitListener()
+        ~ addStayListener()
+    }
+  }
+  
+
+  package  {
+    class Hand {
+        - cards : ArrayList<Card>
+        - value : int
+        + addCard()
+        + getCards()
+        + cardCount()
+        + totalHandValue()
+        + isBust()
+        + isBlackJack()
+    }
+  }
+  
+
+  package  {
+    class Main {
+        {static} + main()
+    }
+  }
+  
+
+  package  {
+    abstract class Player {
+        + Player()
+        + getHand()
+    }
+  }
+  
+
+  package  {
+    class User {
+        - name : String
+        + User()
+        + getName()
+        + setName()
+    }
+  }
+  
+
+  BlackJack o-- User : player
+  BlackJack o-- Dealer : dealer
+  BlackJack o-- Deck : deck
+  BlackJackController o-- BlackJack : game
+  BlackJackController o-- GameBoard : board
+  BlackJackController +-down- HitListener
+  BlackJackController +-down- StayListener
+  HitListener -up-|> ActionListener
+  StayListener -up-|> ActionListener
+  CardPanel -up-|> JPanel
+  AccessibleJPanel -up-|> AccessibleJComponent
+  AccessibleFocusHandler -up-|> FocusListener
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> Serializable
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  ReadObjectCallback -up-|> ObjectInputValidation
+  AccessibleJComponent -up-|> AccessibleExtendedComponent
+  AccessibleJComponent -up-|> AccessibleAWTContainer
+  AccessibleJComponent +-down- AccessibleFocusHandler
+  AccessibleJComponent +-down- AccessibleContainerHandler
+  AccessibleFocusHandler -up-|> FocusListener
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> Serializable
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  KeyboardState -up-|> Serializable
+  ActionStandin -up-|> Action
+  AccessibleAWTContainer -up-|> AccessibleAWTComponent
+  AccessibleAWTContainer +-down- AccessibleContainerHandler
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> Serializable
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  WakingRunnable -up-|> Runnable
+  DropTargetEventTargetFilter -up-|> EventTargetFilter
+  MouseEventTargetFilter -up-|> EventTargetFilter
+  AccessibleAWTComponent -up-|> Serializable
+  AccessibleAWTComponent -up-|> AccessibleComponent
+  AccessibleAWTComponent -up-|> AccessibleContext
+  AccessibleAWTComponent +-down- AccessibleAWTFocusHandler
+  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  DummyRequestFocusController -up-|> RequestFocusController
+  SingleBufferStrategy -up-|> BufferStrategy
+  BltSubRegionBufferStrategy -up-|> SubRegionShowable
+  BltSubRegionBufferStrategy -up-|> BltBufferStrategy
+  FlipSubRegionBufferStrategy -up-|> SubRegionShowable
+  FlipSubRegionBufferStrategy -up-|> FlipBufferStrategy
+  BltBufferStrategy -up-|> BufferStrategy
+  FlipBufferStrategy -up-|> BufferStrategy
+  ProxyCapabilities -up-|> ExtendedBufferCapabilities
+  FlipContents -up-|> AttributeValue
+  Dealer -up-|> Player
+  GameBoard -up-|> JFrame
+  AccessibleJFrame -up-|> AccessibleAWTFrame
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> Serializable
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  AccessibleAWTFrame -up-|> AccessibleAWTWindow
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> Serializable
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  AccessibleAWTWindow -up-|> AccessibleAWTContainer
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> Serializable
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  WindowDisposerRecord -up-|> DisposerRecord
+  AccessibleAWTContainer -up-|> AccessibleAWTComponent
+  AccessibleAWTContainer +-down- AccessibleContainerHandler
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleContainerHandler -up-|> Serializable
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  WakingRunnable -up-|> Runnable
+  DropTargetEventTargetFilter -up-|> EventTargetFilter
+  MouseEventTargetFilter -up-|> EventTargetFilter
+  AccessibleAWTComponent -up-|> Serializable
+  AccessibleAWTComponent -up-|> AccessibleComponent
+  AccessibleAWTComponent -up-|> AccessibleContext
+  AccessibleAWTComponent +-down- AccessibleAWTFocusHandler
+  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTFocusHandler -up-|> Serializable
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponentHandler -up-|> Serializable
+  DummyRequestFocusController -up-|> RequestFocusController
+  SingleBufferStrategy -up-|> BufferStrategy
+  BltSubRegionBufferStrategy -up-|> SubRegionShowable
+  BltSubRegionBufferStrategy -up-|> BltBufferStrategy
+  FlipSubRegionBufferStrategy -up-|> SubRegionShowable
+  FlipSubRegionBufferStrategy -up-|> FlipBufferStrategy
+  BltBufferStrategy -up-|> BufferStrategy
+  FlipBufferStrategy -up-|> BufferStrategy
+  ProxyCapabilities -up-|> ExtendedBufferCapabilities
+  FlipContents -up-|> AttributeValue
+  Player o-- Hand : hand
+  User -up-|> Player
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
